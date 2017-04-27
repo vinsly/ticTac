@@ -1,0 +1,209 @@
+ html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            font-family: "Helvetica Neue", Helvetica, sans-serif;
+            color: #444;
+            -webkit-font-smoothing: antialiased;
+            background: #f0f0f0;
+            background-image:url('../images/home.jpg');
+        }
+        #container {
+            position: fixed;
+            width: 350px;
+            height: 250px;
+            top: 50%;
+            left: 50%;
+            margin-top: -140px;
+            margin-left: -170px;
+        }
+        form {
+           /* margin: 0 auto;
+            margin-top: 14px;*/
+            height: 193px;
+            width: 299px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, .3), inset 0 1px 0 rgba(255, 255, 255, .5);
+        }
+        label {
+            color: #555;
+            display: inline-block;
+            margin-left: 18px;
+            padding-top: 10px;
+            font-size: 14px;
+        }
+        p a {
+            font-size: 11px;
+            color: #aaa;
+            float: right;
+            margin-top: -13px;
+            margin-right: 20px;
+         -webkit-transition: all .4s ease;
+            -moz-transition: all .4s ease;
+            transition: all .4s ease;
+        }
+        p a:hover {
+            color: #555;
+        }
+        input {
+            font-family: "Helvetica Neue", Helvetica, sans-serif;
+            font-size: 12px;
+            outline: none;
+        }
+        input[type=text],
+        input[type=password] ,input[type=time]{
+            color: #777;
+            padding-left: 10px;
+            margin-top: 12px;
+            margin-bottom: 12px;
+            width: 290px;
+            height: 35px;
+            border: 1px solid #c7d0d2;
+            border-radius: 2px;
+            -webkit-transition: all .4s ease;
+            -moz-transition: all .4s ease;
+            transition: all .4s ease;
+            }
+        input[type=text]:hover,
+        input[type=password]:hover,input[type=time]:hover {
+            border: 1px solid #b6bfc0;
+           box-shadow: inset 0 1.5px 3px rgb(223, 202, 171);
+        }
+        input[type=text]:focus,
+        input[type=password]:focus,input[type=time]:focus {
+            border: 1px solid #a8c9e4;
+            box-shadow: inset 0 1.5px 3px rgb(223, 202, 171);
+        }
+        
+        input[type=checkbox] {
+            margin-left: 20px;
+            margin-top: 30px;
+            -webkit-appearance: none;
+            display: inline-block;
+            width: 13px;
+            height: 13px;
+            cursor: pointer;
+            vertical-align: bottom;
+            background: #fff;
+            border: 1px solid #c6c6c6;
+            border-radius: 1px;
+            box-sizing: border-box;
+            position: relative;
+        }
+        input[type=checkbox]:checked::after{
+            content: url(https://ssl.gstatic.com/ui/v1/menu/checkmark.png);
+            display: block;
+            position: absolute;
+            top: -6px;
+            left: -5px;
+        }
+        .check {
+            margin-left: 3px;
+            font-size: 11px;
+            color: #444;
+            text-shadow: 0 1px 0 #fff;
+        }
+        input[type=submit] {
+            float: right;
+            margin-right: 20px;
+            margin-top: 20px;
+            width: 80px;
+            height: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            border: 1px solid #996db5;
+            color: #fff;
+            background-image: -webkit-linear-gradient(top,#fed04d,#675846);
+            background-image: -moz-linear-gradient(top,#fed04d,#675846);
+            background-image: -ms-linear-gradient(top,#fed04d,#675846);
+            background-image: -o-linear-gradient(top,#fed04d,#675846);
+            border-radius: 3px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, .3), inset 0 1px 0 rgba(255, 255, 255, .5);
+            cursor: pointer;
+        }
+        input[type=submit]:hover {
+            background-image: -webkit-gradient(linear, left top, left bottom, from(#fed04d), to(#675846));
+            background-image: -moz-linear-gradient(top left 90deg, #fed04d 0%, #675846 100%);
+            background-image: linear-gradient(top left 90deg, #fed04d 0%, #675846 100%);
+        }
+        input[type=submit]:active {
+            background-image: -webkit-gradient(linear, left top, left bottom, from(#fed04d), to(#675846));
+            background-image: -moz-linear-gradient(top left 90deg, #fed04d 0%, #675846 100%);
+            background-image: linear-gradient(top left 90deg, #fed04d 0%, #675846 100%);
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+        }
+.login_button{
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    z-index: 1;
+    position: relative;
+    border: 1px solid #948669;
+    color: #fff;
+    text-shadow: 0 1px rgba(0,0,0,0.1);
+    background-color: #fed04d;
+    background-image: -webkit-linear-gradient(top,#fed04d,#675846);
+    background-image: -moz-linear-gradient(top,#fed04d,#675846);
+    background-image: -ms-linear-gradient(top,#fed04d,#675846);
+    background-image: -o-linear-gradient(top,#fed04d,#675846);
+    min-width: 46px;
+    text-align: center;
+    font-weight: 700;
+    height: 36px;
+    line-height: 36px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+}
+.accordion .ui-state-focus{
+    outline: none;
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100000;
+    background-color:rgba(0,0,0,0);
+}
+.loadmessage{
+    color: #7b7663;
+    font-size: 28px;
+    line-height: 19px;
+    margin-left: 12px;
+    margin-top: 23%;
+    float: left;
+    font-family: cursive;
+}
+.loader{
+    float: left; 
+    margin-left: 47%;
+    margin-top: 421px;
+}
+
+#grid {
+    width: 300px;
+    height: 300px;
+    float: left;
+    margin-left: 40%;
+    margin-top: 10%;    
+    box-shadow: 1px 1px 10px 10px rgba(39, 39, 39, 0.94);    
+}
+
+.cell {
+    box-shadow: 1px 1px 3px 4px rgba(43, 43, 43, 0.94);
+    float: left;
+    height: 100px;
+    width: 100px;    
+    font-size: 85px;
+    text-align: center;
+    cursor: pointer;
+}
+.active{
+    box-shadow: inset 2px -2px 5px 5px rgba(0,0,0,0.94);
+}
