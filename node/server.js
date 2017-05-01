@@ -121,4 +121,16 @@ io.sockets.on('connection', function(socket){
 		console.log(data);
 		socket.broadcast.emit('userSelectedType',data);
 	});
+	socket.on('tossChoice', function(data){
+		socket.broadcast.emit('tossProgress',{flag:1});
+		setTimeout(tossResult(data),5000);
+	});
 });
+
+function tossResult(data){
+	console.log('tossResult', data);
+	var oddEven = (Math.floor(Math.random() * 2) == 0);
+	if(oddEven && data.selectedValue === '1'){
+		socket.emit('tossResult', {data:socket.id});
+	}
+}

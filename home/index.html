@@ -24,12 +24,23 @@
 	</div>​
 	<div class="after-type-select"><span id="what-is-type"></span></div>
 	<div class="overlay" style="background-color: rgba(2, 2, 2, 0.62);">
-		<div class="shape-type">
+		<div id="loader">
+			<img src="../images/loading.gif" alt="indicator" class="loader"><span class="loadmessage">Toss result in progress..</span>
+		</div>
+		<div class="shape-type" id="type-select-div">
 			<span>Please Select Your type</span>
 			<select id="type-select">
 				<option value=0>Select</option>
 				<option value=1>O</option>
 				<option value=2>X</option>
+			</select>
+		</div>
+		<div id="toss-choice" class="shape-type">
+			<span>Please Select Your Choice for toss</span>
+			<select id="toss-select">
+				<option value=0>Select</option>
+				<option value=1>Head</option>
+				<option value=2>Tail</option>
 			</select>
 		</div>
 	</div>
