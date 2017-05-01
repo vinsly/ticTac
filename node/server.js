@@ -60,7 +60,7 @@ function serverListenPostMethods(req,res){
 }
 
 function serverListenGetMethods(req, res){
-	console.log("GOTTHA");
+	console.log("GOTCHA");
 	res.writeHead('200',{
 					"Content-Type":"text/plain"
 				});
@@ -72,7 +72,7 @@ function checkAuth(req,res,postData){
 	console.log(postData.e);
 	var username=postData.e;
 	var password=postData.p;
-	authCollection.findOne({'name':username,'pwd':password},function(err, result){
+	authCollection.findOne({'username':username,'password':password},function(err, result){
 		if(err){
 			res.writeHead(200, {
 				"Content-Type": "text/plain"
@@ -110,10 +110,14 @@ io.sockets.on('connection', function(socket){
 	socketIDConnected.push(socket.id)
 	socket.emit('connectback', {data:socket.id});
 	socket.on('cellClick', function(data){
-		console.log(data)
-		io.sockets.emit('cellChange',{cellid:data.cellid})
+		console.log(data);
+		io.sockets.emit('cellChange',{cellid:data.cellid});
 	});
 	socket.on('disconnect',function(){
 		console.log('disconnect', socket.id);
+		
+	});
+	socket.on('typeSelected', function(data){
+		console.log(data);
 	});
 });

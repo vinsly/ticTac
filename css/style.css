@@ -207,3 +207,11 @@
 .active{
     box-shadow: inset 2px -2px 5px 5px rgba(0,0,0,0.94);
 }
+
+.shape-type{
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+    margin-top: 211px;
+    margin-left: 531px;
+}
