@@ -111,13 +111,14 @@ io.sockets.on('connection', function(socket){
 	socket.emit('connectback', {data:socket.id});
 	socket.on('cellClick', function(data){
 		console.log(data);
-		io.sockets.emit('cellChange',{cellid:data.cellid});
+		socket.broadcast.emit('cellChange',data);
 	});
-	socket.on('disconnect',function(){
+	socket.on('disconnect', function(){
 		console.log('disconnect', socket.id);
 		
 	});
 	socket.on('typeSelected', function(data){
 		console.log(data);
+		socket.broadcast.emit('userSelectedType',data);
 	});
 });
