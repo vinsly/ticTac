@@ -123,14 +123,18 @@ io.sockets.on('connection', function(socket){
 	});
 	socket.on('tossChoice', function(data){
 		socket.broadcast.emit('tossProgress',{flag:1});
-		setTimeout(tossResult(data),5000);
+		tossResult(data, io);
 	});
 });
 
-function tossResult(data){
+function tossResult(data, io){
 	console.log('tossResult', data);
 	var oddEven = (Math.floor(Math.random() * 2) == 0);
-	if(oddEven && data.selectedValue === '1'){
-		socket.emit('tossResult', {data:socket.id});
-	}
+	data.tossResult = oddEven;
+	(function(data, io){
+		setTimeout(function(){
+			io.sockets.emit('tossResult', data);
+		}, 3000);
+	})(data, io);
+	
 }

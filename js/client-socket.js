@@ -13,6 +13,8 @@ socket.on('connectback', function(data){
 
 socket.on('cellChange',function(data){
 	console.log('cellChange',data);
+	console.log(yourTypeSelect);
+	console.log(friendTypeSelect);
 	if(friendTypeSelect === 0)
 		$('#'+data.cellid).text('O')
 	else
@@ -23,9 +25,9 @@ $('.cell').click(function(e){
 	console.log(yourTypeSelect);
 	console.log(friendTypeSelect);
 	if(yourTypeSelect === 0)
-		$(e.currentTarget).text('O')
+		$(e.currentTarget).text('O');
 	else
-		$(e.currentTarget).text('X')
+		$(e.currentTarget).text('X');
 	socket.emit('cellClick',{
 		cellid:e.currentTarget.id
 	})
@@ -35,13 +37,16 @@ $('.cell').click(function(e){
 $('#type-select').change(function(e){
 	e.stopPropagation();
 	console.log(e.target.value);
-	yourTypeSelect = parseInt(e.target.value);
 	$('.overlay').hide();
 	if(e.target.value === '1'){
 		$('#what-is-type').text('Your Type Is Knot (O)');
+		yourTypeSelect = 0;
+		friendTypeSelect = 1;
 	}
 	else{
 		$('#what-is-type').text('Your Type Is Cross (X)');
+		yourTypeSelect = 1;
+		friendTypeSelect = 0;
 	}
 	$('.after-type-select').show();
 	socket.emit('typeSelected', {
@@ -52,7 +57,7 @@ $('#type-select').change(function(e){
 
 socket.on('userSelectedType', function(type){
 	console.log(type);
-	console.log(socket)
+	//console.log(socket)
 	if(type.userName === userName)
 		return;
 	$('.overlay').hide();
@@ -75,7 +80,7 @@ $('#toss-select').change(function(e){
 	console.log(e.target.value);
 	$('#toss-choice').hide();
 	$('#loader').show();
-	socket.emit('tossChoice',{selectedValue: e.target.value});
+	socket.emit('tossChoice',{selectedValue: e.target.value, userName: userName});
 });
 
 socket.on('tossProgress', function(data){
@@ -84,5 +89,22 @@ socket.on('tossProgress', function(data){
 		$('#toss-choice').hide();
 		$('#loader').show();
 	}
-	
+});
+
+socket.on('tossResult', function(data){
+	console.log(data);
+	var flag = false;
+	if((data.selectedValue === '1' && data.tossResult) || (data.selectedValue === '2' && !data.tossResult))
+		flag =true;
+	else
+		flag = false;
+	if((data.userName === userName && flag) || (data.userName !== userName && !flag)){
+		console.log('You won');
+		$('#loader').hide();
+		$('#type-select-div').show();
+	}
+	else if((data.userName === userName && !flag) || (data.userName !== userName && flag)){
+		console.log('Your Friend won');
+		$('.loadmessage').text('Your Friend Won the toss, so he will make the first move!!');
+	}
 });
