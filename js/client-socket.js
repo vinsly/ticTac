@@ -2,7 +2,7 @@ console.log(userName);
 $('.after-type-select').hide();
 $('#type-select-div').hide();
 $('#loader').hide();
-var socket = io.connect("http://localhost:8000/",{'reconnection':true});
+var socket = io.connect("http://192.168.200.151:8000/",{'reconnection':true});
 var socketID = '';
 var yourTypeSelect = 0;
 var friendTypeSelect = 0;
@@ -12,25 +12,36 @@ socket.on('connectback', function(data){
 });
 
 socket.on('cellChange',function(data){
+	$('#type-select-div').hide();
 	console.log('cellChange',data);
 	console.log(yourTypeSelect);
 	console.log(friendTypeSelect);
 	if(friendTypeSelect === 0)
 		$('#'+data.cellid).text('O')
 	else
-		$('#'+data.cellid).text('X')});
+		$('#'+data.cellid).text('X');
+	$('.overlay').hide();
+});
 
 $('.cell').click(function(e){
 	console.log(e.currentTarget.id);
 	console.log(yourTypeSelect);
 	console.log(friendTypeSelect);
+	if($(e.currentTarget).text() !== ''){
+		alert('Already has a value');
+		return;
+	}
 	if(yourTypeSelect === 0)
 		$(e.currentTarget).text('O');
 	else
 		$(e.currentTarget).text('X');
 	socket.emit('cellClick',{
 		cellid:e.currentTarget.id
-	})
+	});
+	$('.overlay').show();
+	$('#type-select-div').hide();
+	$('#loader').show();
+	$('.loadmessage').text('Waiting for your friend to make your move....');
 });
 
 
@@ -60,7 +71,8 @@ socket.on('userSelectedType', function(type){
 	//console.log(socket)
 	if(type.userName === userName)
 		return;
-	$('.overlay').hide();
+	$('.overlay').show();
+	$('.loadmessage').text('Waiting for your friend to make your move....');
 	//friendTypeSelect = parseInt(type.typeSelect);
 	if(type.typeSelect === '1'){
 		yourTypeSelect = 1;
