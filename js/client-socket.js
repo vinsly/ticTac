@@ -2,7 +2,7 @@ console.log(userName);
 $('.after-type-select').hide();
 $('#type-select-div').hide();
 $('#loader').hide();
-var socket = io.connect("http://192.168.200.151:8000/",{'reconnection':true});
+var socket = io.connect("http://localhost:8000/",{'reconnection':true});
 var socketID = '';
 var yourTypeSelect = 0;
 var friendTypeSelect = 0;
@@ -35,6 +35,8 @@ $('.cell').click(function(e){
 		$(e.currentTarget).text('O');
 	else
 		$(e.currentTarget).text('X');
+	if(ticTacGame())
+		console.log('Winner');
 	socket.emit('cellClick',{
 		cellid:e.currentTarget.id
 	});
@@ -120,3 +122,25 @@ socket.on('tossResult', function(data){
 		$('.loadmessage').text('Your Friend Won the toss, so he will make the first move!!');
 	}
 });
+
+function ticTacGame(){
+	var arrObj = $('#grid').children();
+	if(arrObj[0].innerHTML!=='' && (arrObj[0].innerHTML==arrObj[1].innerHTML) && (arrObj[1].innerHTML==arrObj[2].innerHTML))
+		return true;
+	else if(arrObj[3].innerHTML!=='' && (arrObj[3].innerHTML==arrObj[4].innerHTML) && (arrObj[4].innerHTML==arrObj[5].innerHTML))
+		return true;
+	else if(arrObj[3].innerHTML!=='' && (arrObj[6].innerHTML==arrObj[7].innerHTML) && (arrObj[7].innerHTML==arrObj[8].innerHTML))
+		return true;
+	else if(arrObj[0].innerHTML!=='' && (arrObj[0].innerHTML==arrObj[3].innerHTML) && (arrObj[3].innerHTML==arrObj[6].innerHTML))
+		return true;
+	else if(arrObj[1].innerHTML!=='' && (arrObj[1].innerHTML==arrObj[4].innerHTML) && (arrObj[4].innerHTML==arrObj[7].innerHTML))
+		return true;
+	else if(arrObj[2].innerHTML!=='' && (arrObj[2].innerHTML==arrObj[5].innerHTML) && (arrObj[5].innerHTML==arrObj[8].innerHTML))
+		return true;
+	else if(arrObj[0].innerHTML!=='' && (arrObj[0].innerHTML==arrObj[4].innerHTML) && (arrObj[4].innerHTML==arrObj[8].innerHTML))
+		return true;
+	else if(arrObj[2].innerHTML!=='' && (arrObj[2].innerHTML==arrObj[4].innerHTML) && (arrObj[4].innerHTML==arrObj[6].innerHTML))
+		return true;
+	else
+		return false;
+}
