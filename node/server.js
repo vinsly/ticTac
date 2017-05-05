@@ -99,7 +99,7 @@ function checkAuth(req,res,postData){
 }
 
 var io = require('socket.io').listen(app);
-app.listen(8000, '0.0.0.0', function(){
+app.listen(8000, function(){
 	console.log('server listening to localhost:8000');
 });
 

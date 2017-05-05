@@ -6,9 +6,7 @@ $('.diagnal-backward-line').hide();
 $('.diagnal-forward-line').hide();
 $('.row-line').hide();
 $('.column-line').hide();
-var socket = io.connect("http://localhost:8000/", {
-    'reconnection': true
-});
+var socket = io.connect("http://localhost:8000/",{'reconnection':true});
 var socketID = '';
 var yourTypeSelect = 0;
 var friendTypeSelect = 0;
@@ -25,6 +23,7 @@ socket.on('cellChange', function(data) {
     else $('#' + data.cellid).text('X');
     $('.overlay').hide();
 });
+
 $('.cell').click(function(e) {
     console.log(e.currentTarget.id);
     console.log(yourTypeSelect);
