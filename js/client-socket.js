@@ -19,8 +19,19 @@ socket.on('cellChange', function(data) {
     console.log('cellChange', data);
     console.log(yourTypeSelect);
     console.log(friendTypeSelect);
-    if (friendTypeSelect === 0) $('#' + data.cellid).text('O')
-    else $('#' + data.cellid).text('X');
+
+    if (friendTypeSelect === 0) 
+    	$('#' + data.cellid).text('O')
+    else 
+    	$('#' + data.cellid).text('X');
+    if(data.isWinnerExist){
+    	var isWinnerExist = ticTacGame();
+    	$('.overlay').show();
+	    $('#type-select-div').hide();
+	    $('#loader').show();
+	    $('.loadmessage').text('Your friend Won');
+	    return;
+    }
     $('.overlay').hide();
 });
 
@@ -32,21 +43,26 @@ $('.cell').click(function(e) {
         alert('Already has a value');
         return;
     }
-    if (yourTypeSelect === 0) $(e.currentTarget).text('O');
-    else $(e.currentTarget).text('X');
+    if (yourTypeSelect === 0) 
+    	$(e.currentTarget).text('O');
+    else 
+    	$(e.currentTarget).text('X');
+	$('.overlay').show();
+    $('#type-select-div').hide();
+    $('#loader').show();
+    $('.loadmessage').text('Waiting for your friend to make your move....');
     var isWinnerExist = ticTacGame();
     if (isWinnerExist) {
         console.log('Winner', userName);
+        $('.loadmessage').text('You WIN');
     }
+
     socket.emit('cellClick', {
         cellid: e.currentTarget.id,
         winner: userName,
         isWinnerExist: isWinnerExist
     });
-    $('.overlay').show();
-    $('#type-select-div').hide();
-    $('#loader').show();
-    $('.loadmessage').text('Waiting for your friend to make your move....');
+    
 });
 $('#type-select').change(function(e) {
     e.stopPropagation();
