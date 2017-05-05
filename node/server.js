@@ -107,15 +107,20 @@ var socketIDConnected = [];
 
 io.sockets.on('connection', function(socket){
 	console.log('socket connected successfully',socket.id);
-	socketIDConnected.push(socket.id)
+	socketIDConnected.push(socket.id);
+	console.log('socketIDConnected', socketIDConnected);
 	socket.emit('connectback', {data:socket.id});
 	socket.on('cellClick', function(data){
 		console.log(data);
 		socket.broadcast.emit('cellChange',data);
 	});
 	socket.on('disconnect', function(){
+		console.log(socketIDConnected);
 		console.log('disconnect', socket.id);
-		
+		if(socketIDConnected.indexOf(socket.id) !== -1){
+			var index = socketIDConnected.indexOf(socket.id);
+			socketIDConnected.splice(index, 1);
+		}
 	});
 	socket.on('typeSelected', function(data){
 		console.log(data);
