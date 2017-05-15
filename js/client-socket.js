@@ -13,6 +13,8 @@ var friendTypeSelect = 0;
 socket.on('connectback', function(data) {
     console.log(data);
     socketID = data;
+    data.userName = userName;
+    socket.emit('gamerInfo', {data});
 });
 socket.on('cellChange', function(data) {
     $('#type-select-div').hide();
@@ -30,6 +32,8 @@ socket.on('cellChange', function(data) {
 	    $('#type-select-div').hide();
 	    $('#loader').show();
 	    $('.loadmessage').text('Your friend Won');
+	    if(isDrawn())
+	    	$('.loadmessage').text('DRAW');
 	    return;
     }
     $('.overlay').hide();
@@ -56,7 +60,10 @@ $('.cell').click(function(e) {
         console.log('Winner', userName);
         $('.loadmessage').text('You WIN');
     }
-
+    if(isDrawn()){
+    	$('.loadmessage').text('DRAW');
+    	isWinnerExist = true;
+    }
     socket.emit('cellClick', {
         cellid: e.currentTarget.id,
         winner: userName,
@@ -164,4 +171,13 @@ function ticTacGame() {
         $('.diagnal-forward-line').show();
         return true;
     } else return false;
+}
+
+function isDrawn(){
+	var arrObj = $('#grid').children();
+	for (var i = 0; i < arrObj.length; i++) {
+		if(arrObj[i].innerHTML == '')
+			return false
+	}
+	return true;
 }
